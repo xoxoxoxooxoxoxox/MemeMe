@@ -11,26 +11,33 @@ import UIKit
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var imagePickerView: UIImageView!
+    @IBOutlet weak var cameraButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Home view shows")
+        print("viewDidLoad called")
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable((UIImagePickerControllerSourceType.Camera))
+        print("viewWillAppear called")
     }
 
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             imagePickerView.image = image
+            self.dismissViewControllerAnimated(true, completion: nil)
         }
     }
     
-    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        
-        
-    }
+//    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+//        
+//        
+//    }
     
     @IBAction func pickAnImageFromAlbum(sender: AnyObject) {
-        print("Pick button pressed")
+        print("Album button pressed")
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
@@ -38,7 +45,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     @IBAction func pickAnImageFromCamera(sender: AnyObject) {
-        print("Pick button pressed")
+        print("Camera button pressed")
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
