@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -21,7 +22,7 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EhO-1j-Tra">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                             </imageView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ut3-6Y-ntJ">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ut3-6Y-ntJ">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="8Co-oN-Xb5"/>
@@ -42,25 +43,28 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="EhO-1j-Tra" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="71" id="9KY-oo-JCK"/>
-                            <constraint firstItem="ut3-6Y-ntJ" firstAttribute="top" secondItem="EhO-1j-Tra" secondAttribute="bottom" constant="178" id="HvJ-cN-8o2"/>
+                            <constraint firstItem="EhO-1j-Tra" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="71" id="KBh-u6-fzc"/>
+                            <constraint firstItem="ut3-6Y-ntJ" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="OlM-Ce-nFo"/>
+                            <constraint firstItem="EhO-1j-Tra" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="R8a-UM-y0u"/>
+                            <constraint firstItem="ut3-6Y-ntJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Rz7-vA-ShA"/>
+                            <constraint firstItem="ut3-6Y-ntJ" firstAttribute="top" secondItem="EhO-1j-Tra" secondAttribute="bottom" constant="305" id="VrJ-Yx-Kip"/>
                             <constraint firstItem="EhO-1j-Tra" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="WL2-rw-Ojc"/>
-                            <constraint firstItem="EhO-1j-Tra" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Z0a-6H-D1F"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ut3-6Y-ntJ" secondAttribute="trailing" constant="-20" id="brp-la-UpD"/>
                             <constraint firstItem="EhO-1j-Tra" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="cgr-Ft-r3u"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ut3-6Y-ntJ" secondAttribute="bottom" id="jet-NL-1B9"/>
                             <constraint firstItem="ut3-6Y-ntJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="mXU-am-3an"/>
+                            <constraint firstAttribute="trailing" secondItem="ut3-6Y-ntJ" secondAttribute="trailing" id="maO-we-tw6"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="EhO-1j-Tra"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="9KY-oo-JCK"/>
+                                <exclude reference="KBh-u6-fzc"/>
+                                <exclude reference="R8a-UM-y0u"/>
                                 <exclude reference="WL2-rw-Ojc"/>
-                                <exclude reference="Z0a-6H-D1F"/>
                                 <exclude reference="cgr-Ft-r3u"/>
-                                <exclude reference="HvJ-cN-8o2"/>
+                                <exclude reference="VrJ-Yx-Kip"/>
                                 <exclude reference="brp-la-UpD"/>
                                 <exclude reference="mXU-am-3an"/>
                                 <exclude reference="jet-NL-1B9"/>
@@ -71,14 +75,18 @@
                                 <include reference="EhO-1j-Tra"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="9KY-oo-JCK"/>
                                 <include reference="WL2-rw-Ojc"/>
-                                <include reference="Z0a-6H-D1F"/>
                                 <include reference="cgr-Ft-r3u"/>
-                                <include reference="HvJ-cN-8o2"/>
                                 <include reference="brp-la-UpD"/>
                                 <include reference="mXU-am-3an"/>
                                 <include reference="jet-NL-1B9"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="KBh-u6-fzc"/>
+                                <include reference="R8a-UM-y0u"/>
+                                <include reference="VrJ-Yx-Kip"/>
                             </mask>
                         </variation>
                     </view>
