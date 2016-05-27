@@ -18,22 +18,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ut3-6Y-ntJ">
-                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
-                                <items>
-                                    <barButtonItem title="Pick" id="Ou3-Rt-ebG"/>
-                                </items>
-                            </toolbar>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EhO-1j-Tra">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
                                     <rect key="frame" x="80" y="180" width="240" height="240"/>
                                 </variation>
                             </imageView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ut3-6Y-ntJ">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <items>
+                                    <barButtonItem title="Camera" id="Ou3-Rt-ebG">
+                                        <connections>
+                                            <action selector="pickAnImage:" destination="BYZ-38-t0r" id="IrD-Jv-ijs"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" id="q8t-sp-Azu">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="jNp-0j-1Rh">
+                                            <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="Album"/>
+                                        </button>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="ut3-6Y-ntJ" secondAttribute="trailing" constant="-220" id="CE8-Jw-QyE"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ut3-6Y-ntJ" secondAttribute="trailing" constant="-20" id="HHb-MW-JSo"/>
                             <constraint firstItem="EhO-1j-Tra" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="WL2-rw-Ojc"/>
                             <constraint firstItem="ut3-6Y-ntJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="YK9-RI-nnZ"/>
                             <constraint firstItem="EhO-1j-Tra" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="eTs-d2-9Dh"/>
@@ -48,6 +60,7 @@
                                 <exclude reference="WL2-rw-Ojc"/>
                                 <exclude reference="eTs-d2-9Dh"/>
                                 <exclude reference="CE8-Jw-QyE"/>
+                                <exclude reference="HHb-MW-JSo"/>
                                 <exclude reference="YK9-RI-nnZ"/>
                                 <exclude reference="sVA-cK-xSp"/>
                                 <exclude reference="z7K-NY-mZv"/>
@@ -61,15 +74,20 @@
                                 <include reference="WL2-rw-Ojc"/>
                                 <include reference="eTs-d2-9Dh"/>
                                 <include reference="CE8-Jw-QyE"/>
+                                <include reference="HHb-MW-JSo"/>
                                 <include reference="YK9-RI-nnZ"/>
                                 <include reference="sVA-cK-xSp"/>
                                 <include reference="z7K-NY-mZv"/>
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="imagePickerView" destination="EhO-1j-Tra" id="xVK-0G-OmI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="375" y="267"/>
         </scene>
     </scenes>
 </document>
