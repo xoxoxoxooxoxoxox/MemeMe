@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -15,7 +17,55 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ut3-6Y-ntJ">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <items>
+                                    <barButtonItem title="Pick" id="Ou3-Rt-ebG"/>
+                                </items>
+                            </toolbar>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EhO-1j-Tra">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
+                                    <rect key="frame" x="80" y="180" width="240" height="240"/>
+                                </variation>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="ut3-6Y-ntJ" secondAttribute="trailing" constant="-220" id="CE8-Jw-QyE"/>
+                            <constraint firstItem="EhO-1j-Tra" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="WL2-rw-Ojc"/>
+                            <constraint firstItem="ut3-6Y-ntJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="YK9-RI-nnZ"/>
+                            <constraint firstItem="EhO-1j-Tra" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="eTs-d2-9Dh"/>
+                            <constraint firstItem="ut3-6Y-ntJ" firstAttribute="top" secondItem="EhO-1j-Tra" secondAttribute="bottom" constant="136" id="sVA-cK-xSp"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ut3-6Y-ntJ" secondAttribute="bottom" id="z7K-NY-mZv"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="EhO-1j-Tra"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="WL2-rw-Ojc"/>
+                                <exclude reference="eTs-d2-9Dh"/>
+                                <exclude reference="CE8-Jw-QyE"/>
+                                <exclude reference="YK9-RI-nnZ"/>
+                                <exclude reference="sVA-cK-xSp"/>
+                                <exclude reference="z7K-NY-mZv"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="EhO-1j-Tra"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="WL2-rw-Ojc"/>
+                                <include reference="eTs-d2-9Dh"/>
+                                <include reference="CE8-Jw-QyE"/>
+                                <include reference="YK9-RI-nnZ"/>
+                                <include reference="sVA-cK-xSp"/>
+                                <include reference="z7K-NY-mZv"/>
+                            </mask>
+                        </variation>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
