@@ -24,26 +24,35 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     ]
     
     override func viewDidLoad() {
-        super.viewDidLoad()
         print("viewDidLoad called")
+        super.viewDidLoad()
     
-//        topText.text = "TOP"
-//        topText.textAlignment = NSTextAlignment.Center
-//        topText.defaultTextAttributes = memeTextAttributes
-//        self.topText.delegate = self
-//        
-//        bottomText.text = "BOTTOM"
-//        bottomText.textAlignment = NSTextAlignment.Center
-//        bottomText.defaultTextAttributes = memeTextAttributes
-//        self.bottomText.delegate = self
+        topText.text = "TOP"
+        topText.textAlignment = NSTextAlignment.Center
+        topText.defaultTextAttributes = memeTextAttributes
+        self.topText.delegate = self
+        
+        bottomText.text = "BOTTOM"
+        bottomText.textAlignment = NSTextAlignment.Center
+        bottomText.defaultTextAttributes = memeTextAttributes
+        self.bottomText.delegate = self
     }
     
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        print("viewWillAppear called")
         // Check camera existenct
         cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable((UIImagePickerControllerSourceType.Camera))
         // Subscribe to the keyboard notifications, to allow the view to raise when necessary
-        self.subscribeToKeyboardNotification()
-        print("viewWillAppear called")
+        self.subscribeToKeyboardNotifications()
+        
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("viewDidDisappear called")
+        self.unsubscribeFromKeyboardNotifications()
+        
     }
     
     func textFieldDidBeginEditing(textField: UITextField) {
@@ -68,10 +77,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
     
-//    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-//        
-//        
-//    }
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
     
     // Pick an image method
     @IBAction func pickAnImageFromAlbum(sender: AnyObject) {
@@ -90,20 +98,38 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.presentViewController(imagePicker, animated: true, completion: nil)
     }
     
-    // Move the view when the keyboard covers the text field
+    // Move the view up when the keyboard covers the text field
     func keyboardWillShow(notification: NSNotification) {
-        self.view.frame.origin.y -= getKeyboardHeight(notification)
+        if bottomText.isFirstResponder() {
+            self.view.frame.origin.y -= getKeyboardHeight(notification)
+        }
+    }
+    
+    // Move the view down when the keyboard uncovers the text field
+    func keyboardWillHide(notification: NSNotification) {
+        if bottomText.isFirstResponder() {
+            self.view.frame.origin.y = 0
+        }
     }
     
     func getKeyboardHeight(notification: NSNotification) -> CGFloat {
-        let userInfo = notification.userInfo
-        let keyboardSize = userInfo![UIKeyboardFrameBeginUserInfoKey] as! NSValue
+        let userInfo = notification.userInfo!
+        let keyboardSize = userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
         return keyboardSize.CGRectValue().height
     }
     
-    func subscribeToKeyboardNotification() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow", name: UIKeyboardWillShowNotification, object: nil)
+    func subscribeToKeyboardNotifications() {
+        print("subscribeToKeyboardNotifications subscribed")
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
     }
-
+    
+    func unsubscribeFromKeyboardNotifications() {
+        print("unsubscribeFromKeyboardNotifications unsubscribed")
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    
 }
 
