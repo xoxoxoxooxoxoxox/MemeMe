@@ -8,6 +8,23 @@
 
 import UIKit
 
+// Meme object definition
+struct Meme {
+
+    let topText: String
+    let bottomText: String
+    let originalImage: UIImage
+    let memedImage: UIImage
+    
+    init(topText: String, bottomText: String, originalImage: UIImage, memedImage: UIImage) {
+        self.topText = topText
+        self.bottomText = bottomText
+        self.originalImage  = originalImage
+        self.memedImage = memedImage
+    }
+    
+}
+
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
     // Outlets
@@ -16,26 +33,20 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var topText: UITextField!
     @IBOutlet weak var bottomText: UITextField!
     
-    let memeTextAttributes = [
-        NSStrokeColorAttributeName: UIColor.blackColor(),
-        NSForegroundColorAttributeName: UIColor.whiteColor(),
-        NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-        NSStrokeWidthAttributeName: -3.0
-    ]
-    
     override func viewDidLoad() {
         print("viewDidLoad called")
         super.viewDidLoad()
     
         topText.text = "TOP"
-        topText.textAlignment = NSTextAlignment.Center
-        topText.defaultTextAttributes = memeTextAttributes
         self.topText.delegate = self
+        topText.defaultTextAttributes = memeTextAttributes
+        topText.textAlignment = NSTextAlignment.Center
         
         bottomText.text = "BOTTOM"
-        bottomText.textAlignment = NSTextAlignment.Center
-        bottomText.defaultTextAttributes = memeTextAttributes
         self.bottomText.delegate = self
+        bottomText.defaultTextAttributes = memeTextAttributes
+        bottomText.textAlignment = NSTextAlignment.Center
+
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -55,6 +66,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
     }
     
+    /*****************************
+    * Text field related methods *
+    *****************************/
+    
+    let memeTextAttributes = [
+        NSStrokeColorAttributeName: UIColor.blackColor(),
+        NSForegroundColorAttributeName: UIColor.whiteColor(),
+        NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
+        NSStrokeWidthAttributeName: -3.0
+    ]
+    
     func textFieldDidBeginEditing(textField: UITextField) {
         textField.text = ""
     }
@@ -66,9 +88,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         textField.defaultTextAttributes = memeTextAttributes
+        textField.textAlignment = NSTextAlignment.Center
         return true
     }
 
+    /***********************************
+    * Image controller related methods *
+    ***********************************/
+    
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             imagePickerView.image = image
@@ -97,6 +124,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
         self.presentViewController(imagePicker, animated: true, completion: nil)
     }
+    
+    /**********************************
+    * Keyboard action related methdos *
+    **********************************/
     
     // Move the view up when the keyboard covers the text field
     func keyboardWillShow(notification: NSNotification) {
@@ -130,6 +161,27 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
     }
     
+    /****************************
+    * Save meme related methods *
+    ****************************/
     
+    func save() {
+        let memedImage = generateMemedImage()
+        let meme = Meme(topText: topText.text!, bottomText: bottomText.text!, originalImage: imagePickerView.image!, memedImage: memedImage)
+    }
+    
+    func generateMemedImage() -> UIImage {
+        // TODO: Hide toolbar and navbar
+        
+        // Render view to an image
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        view.drawViewHierarchyInRect(self.view.frame, afterScreenUpdates: true)
+        let memedImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+         // TODO:  Show toolbar and navbar
+        
+        return memedImage
+    }
 }
 

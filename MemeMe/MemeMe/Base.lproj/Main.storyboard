@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="O4q-QO-ZDa">
-                                <rect key="frame" x="0.0" y="33" width="600" height="534"/>
+                                <rect key="frame" x="0.0" y="21" width="600" height="534"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="534" id="DvN-74-yvq"/>
                                     <constraint firstAttribute="width" constant="600" id="ZCp-fv-m0b"/>
@@ -43,8 +43,8 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="xVM-f4-3rf"/>
                                 </items>
                             </toolbar>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="5v2-Ky-Ld2">
-                                <rect key="frame" x="0.0" y="33" width="600" height="40"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="5v2-Ky-Ld2">
+                                <rect key="frame" x="0.0" y="21" width="600" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="UZB-jl-vH1"/>
                                 </constraints>
@@ -64,14 +64,19 @@
                         <constraints>
                             <constraint firstItem="O4q-QO-ZDa" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="0Y6-WV-QOx"/>
                             <constraint firstItem="0Gf-PF-cNO" firstAttribute="leading" secondItem="ut3-6Y-ntJ" secondAttribute="leading" id="45Z-so-3F2"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="5v2-Ky-Ld2" secondAttribute="trailing" constant="-20" id="4j3-Z9-cwJ"/>
+                            <constraint firstItem="0Gf-PF-cNO" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="7jy-1X-sdw"/>
                             <constraint firstItem="0Gf-PF-cNO" firstAttribute="trailing" secondItem="5v2-Ky-Ld2" secondAttribute="trailing" id="Avl-FY-3A3"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="O4q-QO-ZDa" secondAttribute="bottom" constant="45" id="Bdk-GJ-Kfj"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ut3-6Y-ntJ" secondAttribute="trailing" constant="-20" id="H8I-gI-fhC"/>
+                            <constraint firstItem="5v2-Ky-Ld2" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="PpW-jD-teu"/>
                             <constraint firstItem="5v2-Ky-Ld2" firstAttribute="top" secondItem="O4q-QO-ZDa" secondAttribute="top" id="Pr8-7v-IP6"/>
                             <constraint firstItem="O4q-QO-ZDa" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="adF-7f-d80"/>
-                            <constraint firstItem="ut3-6Y-ntJ" firstAttribute="top" secondItem="0Gf-PF-cNO" secondAttribute="bottom" constant="50" id="bSP-tz-OIh"/>
+                            <constraint firstItem="ut3-6Y-ntJ" firstAttribute="top" secondItem="0Gf-PF-cNO" secondAttribute="bottom" id="bSP-tz-OIh"/>
                             <constraint firstItem="0Gf-PF-cNO" firstAttribute="leading" secondItem="5v2-Ky-Ld2" secondAttribute="leading" id="pYc-H6-Gzs"/>
                             <constraint firstItem="ut3-6Y-ntJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="r96-pQ-cxY"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ut3-6Y-ntJ" secondAttribute="bottom" id="ryL-VF-7AL"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="0Gf-PF-cNO" secondAttribute="trailing" constant="-20" id="s2l-sb-xKK"/>
                         </constraints>
                     </view>
                     <connections>
