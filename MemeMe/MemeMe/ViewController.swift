@@ -8,13 +8,16 @@
 
 import UIKit
 
-// Meme object definition
+/*************************
+* Meme object definition *
+*************************/
+
 struct Meme {
 
-    let topText: String
-    let bottomText: String
-    let originalImage: UIImage
-    let memedImage: UIImage
+    let topText: String!
+    let bottomText: String!
+    let originalImage: UIImage!
+    let memedImage: UIImage!
     
     init(topText: String, bottomText: String, originalImage: UIImage, memedImage: UIImage) {
         self.topText = topText
@@ -27,11 +30,17 @@ struct Meme {
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
-    // Outlets
+    /**********
+    * Outlets *
+    **********/
+    
     @IBOutlet weak var imagePickerView: UIImageView!
+    @IBOutlet weak var shareButton: UIBarButtonItem!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     @IBOutlet weak var topText: UITextField!
     @IBOutlet weak var bottomText: UITextField!
+    @IBOutlet weak var navbar: UIToolbar!
+    @IBOutlet weak var toolbar: UIToolbar!
     
     override func viewDidLoad() {
         print("viewDidLoad called")
@@ -52,18 +61,21 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         print("viewWillAppear called")
-        // Check camera existenct
+        
+        // Disable share function until a image's picked
+        shareButton.enabled = false
+        
+        // Check camera's availability
         cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable((UIImagePickerControllerSourceType.Camera))
+        
         // Subscribe to the keyboard notifications, to allow the view to raise when necessary
         self.subscribeToKeyboardNotifications()
-        
     }
     
     override func viewDidDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         print("viewDidDisappear called")
         self.unsubscribeFromKeyboardNotifications()
-        
     }
     
     /*****************************
@@ -100,7 +112,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             imagePickerView.image = image
             imagePickerView.contentMode = UIViewContentMode.ScaleAspectFit
-            self.dismissViewControllerAnimated(true, completion: nil)
+            imagePickerView.layer.zPosition = -1
+            self.dismissViewControllerAnimated(true, completion: { () -> Void in self.shareButton.enabled = true })
         }
     }
     
@@ -108,7 +121,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    // Pick an image method
+    // Pick an image from different source
     @IBAction func pickAnImageFromAlbum(sender: AnyObject) {
         print("Album button pressed")
         let imagePicker = UIImagePickerController()
@@ -164,14 +177,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     /****************************
     * Save meme related methods *
     ****************************/
-    
-    func save() {
-        let memedImage = generateMemedImage()
-        let meme = Meme(topText: topText.text!, bottomText: bottomText.text!, originalImage: imagePickerView.image!, memedImage: memedImage)
-    }
-    
+
     func generateMemedImage() -> UIImage {
-        // TODO: Hide toolbar and navbar
+        toolbar.hidden = true
+        navbar.hidden = true
         
         // Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
@@ -179,9 +188,29 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let memedImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-         // TODO:  Show toolbar and navbar
+        toolbar.hidden = false
+        navbar.hidden = false
         
         return memedImage
     }
+    
+    func save() {
+        let meme = Meme(topText: topText.text!, bottomText: bottomText.text!, originalImage: imagePickerView.image!, memedImage: generateMemedImage())
+        (UIApplication.sharedApplication().delegate as! AppDelegate).memes.append(meme)
+    }
+    
+    @IBAction func shareMemedImage(sender: AnyObject) {
+        print("Share button pressed")
+        
+        let memedImage = generateMemedImage()
+        let controller = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
+        self.presentViewController(controller, animated: true, completion: nil)
+        controller.completionWithItemsHandler = {(activityType, completed: Bool, returnedItems: [AnyObject]?, error: NSError?) in
+            if completed {
+                self.save()
+            }
+        }
+    }
+    
 }
 
