@@ -112,7 +112,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             imagePickerView.image = image
             imagePickerView.contentMode = UIViewContentMode.ScaleAspectFit
-            imagePickerView.layer.zPosition = -1
             self.dismissViewControllerAnimated(true, completion: { () -> Void in self.shareButton.enabled = true })
         }
     }
