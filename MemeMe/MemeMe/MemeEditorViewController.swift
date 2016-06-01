@@ -8,27 +8,7 @@
 
 import UIKit
 
-/*************************
-* Meme object definition *
-*************************/
-
-struct Meme {
-
-    let topText: String!
-    let bottomText: String!
-    let originalImage: UIImage!
-    let memedImage: UIImage!
-    
-    init(topText: String, bottomText: String, originalImage: UIImage, memedImage: UIImage) {
-        self.topText = topText
-        self.bottomText = bottomText
-        self.originalImage  = originalImage
-        self.memedImage = memedImage
-    }
-    
-}
-
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
     /**********
     * Outlets *
@@ -37,13 +17,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var imagePickerView: UIImageView!
     @IBOutlet weak var shareButton: UIBarButtonItem!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var topText: UITextField!
     @IBOutlet weak var bottomText: UITextField!
     @IBOutlet weak var navbar: UIToolbar!
     @IBOutlet weak var toolbar: UIToolbar!
     
     override func viewDidLoad() {
-        print("viewDidLoad called")
+        print("MemeEditorViewController viewDidLoad called")
         super.viewDidLoad()
     
         topText.text = "TOP"
@@ -60,7 +41,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        print("viewWillAppear called")
+        print("MemeEditorViewController viewWillAppear called")
         
         // Disable share function until a image's picked
         shareButton.enabled = false
@@ -74,7 +55,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     override func viewDidDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        print("viewDidDisappear called")
+        print("MemeEditorViewController viewDidDisappear called")
         self.unsubscribeFromKeyboardNotifications()
     }
     
@@ -194,8 +175,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func save() {
+        // Create the meme
         let meme = Meme(topText: topText.text!, bottomText: bottomText.text!, originalImage: imagePickerView.image!, memedImage: generateMemedImage())
-        (UIApplication.sharedApplication().delegate as! AppDelegate).memes.append(meme)
+        
+        // Add it to the memes array in the Application Delegate
+        let object = UIApplication.sharedApplication().delegate
+        let appDelegate = object as! AppDelegate
+        appDelegate.memes.append(meme)
+        print("Meme saved, memes count:" + " \(appDelegate.memes.count)")
     }
     
     @IBAction func shareMemedImage(sender: AnyObject) {
@@ -207,9 +194,19 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         controller.completionWithItemsHandler = {(activityType, completed: Bool, returnedItems: [AnyObject]?, error: NSError?) in
             if completed {
                 self.save()
+                self.dismissViewControllerAnimated(true, completion: nil)
             }
         }
     }
+    
+    /**************************
+    * Cancel button on Navbar *
+    **************************/
+    
+    @IBAction func cancelView(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     
 }
 
