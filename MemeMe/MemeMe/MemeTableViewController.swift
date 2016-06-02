@@ -16,7 +16,10 @@ class MemeTableViewController: UIViewController, UITableViewDataSource, UITableV
         return (UIApplication.sharedApplication().delegate as! AppDelegate).memes
     }
     
-    // Life cycle methods
+    /*********************
+    * Life cycle methods *
+    *********************/
+    
     override func viewDidLoad() {
         print("MemeTableViewController viewDidLoad called")
         super.viewDidLoad()
